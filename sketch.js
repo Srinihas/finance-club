@@ -1,3 +1,6 @@
+let clubArray = [];
+var database;
+
 function setup() {
   database = firebase.database();
   database.ref().once('value', function(snapshot) {
