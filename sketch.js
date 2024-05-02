@@ -14,14 +14,18 @@ function setup() {
 }
 
 function draw() {
-  clubArray.forEach(element => {
-    let drift = random(-0.1, 0.1); // Drift in the stock price
-    let noise = randomGaussian(0, volatility); // Random noise
-    let deltaPrice = drift * initialPrice * timeInterval + noise; // Change in stock price
+  if ((currentHour > 7 && currentHour < 13) || 
+      (currentHour === 7 && currentMinute >= 30) ||
+      (currentHour === 13 && currentMinute <= 30)) {
+    clubArray.forEach(element => {
+      let drift = random(-0.1, 0.1); // Drift in the stock price
+      let noise = randomGaussian(0, volatility); // Random noise
+      let deltaPrice = drift * initialPrice * timeInterval + noise; // Change in stock price
 
     // Update stock price for each club
     let stock_price = database.ref(`/clubs/${element.trim()}/stock-price`);
-    stock_price.set(deltaPrice);
-  });
-  delay(10000)
+      stock_price.set(deltaPrice);
+    });
+    delay(10000)
+  }
 }
