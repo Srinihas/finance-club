@@ -20,4 +20,5 @@ function draw() {
     let stock_price = database.ref(`/clubs/${element.trim()}/stock-price`);
     stock_price.set(deltaPrice);
   });
+  delay(10000)
 }
